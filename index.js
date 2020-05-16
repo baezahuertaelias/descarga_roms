@@ -62,7 +62,7 @@ async function recorrido(consola) {
     var coincidencias = regExp.exec(consola);
 
     //Variable para saber cuantas paginas tiene que recorrer
-    let cantidad_paginas = Math.ceil((coincidencias[1].replace(',','')) / 20);
+    let cantidad_paginas = Math.ceil((coincidencias[1].replace(',', '')) / 20);
 
     //Variable actualizada para poder crear carpeta de descarga y poder completar links de descarga
     tipo_consola = consola.replace(coincidencias[0], '').trim().toLowerCase().split(' ').join('-');
@@ -91,7 +91,7 @@ async function recorrido(consola) {
 
             });
         //Actualizamos texto a mostrar al usuario
-        rainbow.replace(`Obteniendo listado de juegos ${Math.round((i * 100) / cantidad_paginas+1)}%`);
+        rainbow.replace(`Obteniendo listado de juegos ${Math.round((i * 100) / cantidad_paginas + 1)}%`);
 
     }
 
@@ -155,9 +155,14 @@ async function descarga(arr_link_final) {
             .then(function (response) {
                 //El archivo es guardado en el directorio
                 response.data.pipe(fs.createWriteStream(directorio_descarga + '/' + nombre));
+                //Actualiza el estado de la descarga en promedio de TODOS los juegos
+                rainbow.replace(`Porcentaje completado ${Math.round((i * 100) / arr_link_final.length)}% => Descargado ${nombre}`);
+            })
+            .catch(function (err) {
+                //Mensaje de error, pero no voy a detallar el porque. Generalmente es el 404
+                rainbow.replace(`Porcentaje completado ${Math.round((i * 100) / arr_link_final.length)}% => Fallo ${nombre}`);
             });
-        //Actualiza el estado de la descarga en promedio de TODOS los juegos
-        rainbow.replace(`Porcentaje completado ${Math.round((i * 100) / arr_link_final.length)}% => Descargado ${nombre}`);
+
     }
     //Aviso al usuario que ya las cosas fueron descargadas
     rainbow.replace('T E R M I N A D O');
