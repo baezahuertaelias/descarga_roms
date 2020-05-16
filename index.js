@@ -62,7 +62,7 @@ async function recorrido(consola) {
     var coincidencias = regExp.exec(consola);
 
     //Variable para saber cuantas paginas tiene que recorrer
-    let cantidad_paginas = Math.ceil((coincidencias[1]) / 20);
+    let cantidad_paginas = Math.ceil((coincidencias[1].replace(',','')) / 20);
 
     //Variable actualizada para poder crear carpeta de descarga y poder completar links de descarga
     tipo_consola = consola.replace(coincidencias[0], '').trim().toLowerCase().split(' ').join('-');
