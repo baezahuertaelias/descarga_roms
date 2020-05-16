@@ -91,7 +91,7 @@ async function recorrido(consola) {
 
             });
         //Actualizamos texto a mostrar al usuario
-        rainbow.replace(`Obteniendo listado de juegos ${Math.round((i * 100) / 26)}%`);
+        rainbow.replace(`Obteniendo listado de juegos ${Math.round((i * 100) / cantidad_paginas+1)}%`);
 
     }
 
